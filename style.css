@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(41, 36, 36);
+}
+
+#wordContainer {
+    border: 1px solid red;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 90%;
+}
+
+#lettersContainer {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto ;
+}
+
+.letter {
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    transition: 100ms;
+}
+
+.letter:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+}
