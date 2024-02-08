@@ -8,8 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="wordContainer"></div>
+    <div id="loginContainer">
+        <form action="">
+            <label for="nickname">Enter your name:</label><br><br>
+            <input id="userName" type="text" placeholder="Name..">
+            <input type="submit" value="Submit" onclick="submitForm(event)">
+        </form>
+    </div>
 
+<div id="gameContainer">
+    <div id="wordContainer"></div>
     <div id="lettersContainer">
         <div class="letter">A</div>
         <div class="letter">B</div>
@@ -41,6 +49,7 @@
     <div id="handlingContainer">
         <button id="newWordButton">New word</button>
     </div>
+</div>
 
     <script>
         fetch('/api/users')

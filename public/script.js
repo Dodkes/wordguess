@@ -1,6 +1,8 @@
 const newWordButton = document.getElementById('newWordButton')
 const wordContainer = document.getElementById('wordContainer')
 const letterButton = document.querySelectorAll('.letter')
+const loginContainer = document.getElementById('loginContainer')
+const gameContainer = document.getElementById('gameContainer')
 
 let correctWordArray
 
@@ -24,8 +26,7 @@ newWordButton.addEventListener('click', () => {
 })
 
 function generateWord () {
-    const letterElement = document.createElement('span')
-    letterElement.textContent = ' '
+    const letterElement = document.createElement('div')
     letterElement.classList.add('wordLetter')
     wordContainer.appendChild(letterElement)
 }
@@ -51,9 +52,15 @@ letterButton.forEach(button => button.addEventListener('click', () => {
 }))
 
 function refreshLetters () {
-    console.log('OK')
         letterButton.forEach(element => {
             element.classList.add('default')
             element.classList.remove('clicked')
     })
+}
+
+function submitForm (event) {
+    event.preventDefault()
+    if (!document.getElementById('userName').value) return
+    loginContainer.style.display = 'none'
+    gameContainer.style.display = 'block'
 }
