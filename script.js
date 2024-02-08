@@ -9,10 +9,9 @@ const words = [
     'happiness'
 ]
 
-
 newWordButton.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * words.length)
-
+    wordContainer.querySelectorAll('*').forEach(child => child.remove());
 
     for (i = 0; i < words[randomNumber].length; i++) {
         console.log(words[randomNumber])
@@ -21,9 +20,9 @@ newWordButton.addEventListener('click', () => {
     }
 })
 
-
 function generateWord () {
     const letterElement = document.createElement('span')
-    letterElement.textContent = 'lol '
+    letterElement.textContent = 'A '
+    letterElement.classList.add('wordLetter')
     wordContainer.appendChild(letterElement)
 }
