@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <script src="script.js" defer></script>
     <title>Document</title>
 </head>
@@ -41,5 +41,11 @@
     <div id="handlingContainer">
         <button id="newWordButton">New word</button>
     </div>
+
+    <script>
+        fetch('/api/users')
+        .then(response => response.json())
+        .then(users => console.log(users))
+    </script>
 </body>
 </html>
