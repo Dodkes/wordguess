@@ -63,4 +63,5 @@ function submitForm (event) {
     if (!document.getElementById('userName').value) return
     loginContainer.style.display = 'none'
     gameContainer.style.display = 'block'
+
 }

@@ -11,8 +11,8 @@ html, body {
 #wordContainer {
     position: absolute;
     top: 20%;
-    left: 5%;
-    width: 90%;
+    left: 0%;
+    width: 100%;
     color: white;
     text-align: center;
 }
@@ -91,6 +91,8 @@ html, body {
 
 #gameContainer {
     display: none;
+    width: 100%;
+    height: 100%;
 }
 
 #loginContainer {
@@ -106,4 +108,17 @@ html, body {
 
 #userName {
     outline: none;
+}
+
+@media only screen and (max-width: 900px) {
+    #lettersContainer {
+        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    #lettersContainer {
+        top: 40%;
+        grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    }
 }
