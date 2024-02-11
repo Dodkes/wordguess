@@ -11,10 +11,34 @@ const pool = mysql.createPool({
 }).promise()
 
 
-async function getPlayers () {
+export async function getPlayers () {
     const result = await pool.query('SELECT * FROM Players')
     return result
 }
 
-const players = await getPlayers()
-console.log(players)
+// const players = await getPlayers()
+// console.log(players)
+
+export async function getPlayer (id) {
+    const [rows] = await pool.query(`
+    SELECT * 
+    FROM Players
+    WHERE id = ?
+    `, [id])
+    return rows
+}
+
+// const player = await getPlayer()
+// console.log(player)
+
+export async function createPlayer (name, score) {
+    const result = await pool.query(`
+    INSERT INTO Players (name, score)
+    VALUES (?, ?)
+    `, [name, score])
+    return result
+}
+
+
+// const result = await createPlayer ('Dodo', 1266)
+// console.log(result)
