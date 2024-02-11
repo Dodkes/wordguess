@@ -2,7 +2,6 @@ import mysql from 'mysql2'
 import dotenv from 'dotenv'
 dotenv.config()
 
-
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
@@ -10,6 +9,10 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
+export async function getWords () {
+    const result = await pool.query('SELECT * FROM Words')
+    return result
+}
 
 export async function getPlayers () {
     const result = await pool.query('SELECT * FROM Players')
@@ -38,7 +41,6 @@ export async function createPlayer (name, score) {
     `, [name, score])
     return result
 }
-
 
 // const result = await createPlayer ('Dodo', 1266)
 // console.log(result)

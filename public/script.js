@@ -5,14 +5,16 @@ const loginContainer = document.getElementById('loginContainer')
 const gameContainer = document.getElementById('gameContainer')
 
 let correctWordArray
+const words = []
 
-const words = [
-    'RED',
-    'BREAD',
-    'BASEMENT',
-    'ELECTRICITY',
-    'HAPPINESS'
-]
+fetch('/Words')
+    .then(response => response.json())
+    .then(data => {
+        for (x of data[0]) {
+            console.log(x.word)
+            words.push(x.word)
+        }
+    })
 
 newWordButton.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * words.length)
@@ -63,5 +65,4 @@ function submitForm (event) {
     if (!document.getElementById('userName').value) return
     loginContainer.style.display = 'none'
     gameContainer.style.display = 'block'
-
 }
