@@ -110,6 +110,17 @@ html, body {
     outline: none;
 }
 
+#infoPanel {
+    text-align: center;
+    margin-top: 1%;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+#loggedInPlayer, #playerScore {
+    color: greenyellow;
+}
+
 @media only screen and (max-width: 900px) {
     #lettersContainer {
         grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;

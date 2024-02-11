@@ -11,7 +11,6 @@ fetch('/Words')
     .then(response => response.json())
     .then(data => {
         for (x of data[0]) {
-            console.log(x.word)
             words.push(x.word)
         }
     })
@@ -19,7 +18,6 @@ fetch('/Words')
 newWordButton.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * words.length)
     wordContainer.querySelectorAll('*').forEach(child => child.remove());
-
     refreshLetters()
     correctWordArray = words[randomNumber].split('')
     for (i = 0; i < words[randomNumber].length; i++) {
@@ -65,4 +63,32 @@ function submitForm (event) {
     if (!document.getElementById('userName').value) return
     loginContainer.style.display = 'none'
     gameContainer.style.display = 'block'
+    fetch('/Players')
+    .then(response => response.json())
+    .then( players => {
+
+        const inputValue = document.getElementById('userName').value
+
+
+
+        for (x of players[0]) {
+
+            if (inputValue === x.name) {
+                document.getElementById('loggedInPlayer').textContent = x.name
+                document.getElementById('playerScore').textContent = x.score
+                console.log('Existing user')
+                break
+            } else {
+                document.getElementById('loggedInPlayer').textContent = inputValue
+                document.getElementById('playerScore').textContent = 0
+                saveToDB(inputValue)
+                console.log('New user')
+            }
+            }
+        }
+    )
+}
+
+function saveToDB (playerName) {
+    alert(playerName)
 }
