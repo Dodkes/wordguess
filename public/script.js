@@ -66,29 +66,48 @@ function submitForm (event) {
     fetch('/Players')
     .then(response => response.json())
     .then( players => {
-
         const inputValue = document.getElementById('userName').value
+        const playerInDB = players[0].find((element) => element.name === inputValue)
 
-
-
-        for (x of players[0]) {
-
-            if (inputValue === x.name) {
-                document.getElementById('loggedInPlayer').textContent = x.name
-                document.getElementById('playerScore').textContent = x.score
-                console.log('Existing user')
-                break
-            } else {
-                document.getElementById('loggedInPlayer').textContent = inputValue
-                document.getElementById('playerScore').textContent = 0
-                saveToDB(inputValue)
-                console.log('New user')
-            }
-            }
+        if (playerInDB !== undefined) {
+            console.log(playerInDB)
+            document.getElementById('loggedInPlayer').textContent = playerInDB.name
+            document.getElementById('playerScore').textContent = playerInDB.score
+        } else {
+            document.getElementById('loggedInPlayer').textContent = inputValue
+            document.getElementById('playerScore').textContent = 0
+            saveToDB(inputValue)
+            console.log('New Player')
+        }
         }
     )
 }
 
 function saveToDB (playerName) {
-    alert(playerName)
+    const data = {
+        name: playerName,
+        score: 0
+    }
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch('/Players', requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not OK')
+        }
+        return response.json()
+    })
+    .then(data => {
+        console.log('Response', data) //Log response data
+    })
+    .catch(error => {
+        console.error('There is a problem with POST request: ', error)
+    })
 }
