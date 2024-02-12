@@ -24,8 +24,8 @@ newWordButton.addEventListener('click', () => {
     refreshLetters()
     const randomWord = words[randomNumber]
     potentialScore = randomWord.length
-    potentialScoreWin.textContent = potentialScore
     decrementScore = Number((potentialScore / 26).toFixed(2))
+    potentialScoreWin.textContent = potentialScore
     correctWordArray = randomWord.split('')
     for (i = 0; i < randomWord.length; i++) {
         generateWord()
@@ -38,15 +38,24 @@ function generateWord () {
     wordContainer.appendChild(letterElement)
 }
 
+let guessed = false
+
 letterButton.forEach(button => button.addEventListener('click', () => {
     if (!correctWordArray) return
-
+    guessed = false
     for (i = 0; i < correctWordArray.length; i++) {
         if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
-        }
+            guessed = true
+        } 
     }
 
+    if (guessed === false) {
+        potentialScore = Number(potentialScore - decrementScore).toFixed(2)
+        potentialScoreWin.textContent = potentialScore
+    }
+
+    console.log(guessed)
     button.classList.add('clicked')
     button.classList.remove('default')
 
