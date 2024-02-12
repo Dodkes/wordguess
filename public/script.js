@@ -3,8 +3,11 @@ const wordContainer = document.getElementById('wordContainer')
 const letterButton = document.querySelectorAll('.letter')
 const loginContainer = document.getElementById('loginContainer')
 const gameContainer = document.getElementById('gameContainer')
+const potentialScoreWin = document.getElementById('potentialScore')
+const playerScore = document.getElementById('playerScore')
 
 let correctWordArray
+let potentialScore, decrementScore
 const words = []
 
 fetch('/Words')
@@ -17,10 +20,14 @@ fetch('/Words')
 
 newWordButton.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * words.length)
-    wordContainer.querySelectorAll('*').forEach(child => child.remove());
+    wordContainer.querySelectorAll('*').forEach(child => child.remove())
     refreshLetters()
-    correctWordArray = words[randomNumber].split('')
-    for (i = 0; i < words[randomNumber].length; i++) {
+    const randomWord = words[randomNumber]
+    potentialScore = randomWord.length
+    potentialScoreWin.textContent = potentialScore
+    decrementScore = Number((potentialScore / 26).toFixed(2))
+    correctWordArray = randomWord.split('')
+    for (i = 0; i < randomWord.length; i++) {
         generateWord()
     }
 })
@@ -34,20 +41,21 @@ function generateWord () {
 letterButton.forEach(button => button.addEventListener('click', () => {
     if (!correctWordArray) return
 
-    button.classList.add('clicked')
-    button.classList.remove('default')
     for (i = 0; i < correctWordArray.length; i++) {
-        if (button.textContent === correctWordArray[i]) {
+        if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
         }
     }
+
+    button.classList.add('clicked')
+    button.classList.remove('default')
 
     const textElements = wordContainer.childNodes
     const textArray = []
     textElements.forEach(element => textArray.push(element.textContent))
 
     if (textArray.toString() === correctWordArray.toString()) {
-        alert('Congrats')
+        alert(potentialScore)
     }
 }))
 
@@ -72,10 +80,10 @@ function submitForm (event) {
         if (playerInDB !== undefined) {
             console.log(playerInDB)
             document.getElementById('loggedInPlayer').textContent = playerInDB.name
-            document.getElementById('playerScore').textContent = playerInDB.score
+            playerScore.textContent = playerInDB.score
         } else {
             document.getElementById('loggedInPlayer').textContent = inputValue
-            document.getElementById('playerScore').textContent = 0
+            playerScore.textContent = 0
             saveToDB(inputValue)
             console.log('New Player')
         }

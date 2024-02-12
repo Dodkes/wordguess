@@ -121,6 +121,10 @@ html, body {
     color: greenyellow;
 }
 
+#potentialScore {
+    color: yellow;
+}
+
 @media only screen and (max-width: 900px) {
     #lettersContainer {
         grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
