@@ -9,6 +9,7 @@ const playerScore = document.getElementById('playerScore')
 let correctWordArray
 let potentialScore, decrementScore
 const words = []
+let [guessedLetter, guessedWord] = [false, false]
 
 fetch('/Words')
     .then(response => response.json())
@@ -19,6 +20,7 @@ fetch('/Words')
     })
 
 newWordButton.addEventListener('click', () => {
+    guessedWord = false
     const randomNumber = Math.floor(Math.random() * words.length)
     wordContainer.querySelectorAll('*').forEach(child => child.remove())
     refreshLetters()
@@ -38,24 +40,24 @@ function generateWord () {
     wordContainer.appendChild(letterElement)
 }
 
-let guessed = false
-
 letterButton.forEach(button => button.addEventListener('click', () => {
     if (!correctWordArray) return
-    guessed = false
+    if (button.classList.contains('clicked')) return
+    if (guessedWord === true) return
+    guessedLetter = false
     for (i = 0; i < correctWordArray.length; i++) {
         if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
-            guessed = true
+            guessedLetter = true
         } 
     }
 
-    if (guessed === false) {
+    if (guessedLetter === false) {
         potentialScore = Number(potentialScore - decrementScore).toFixed(2)
         potentialScoreWin.textContent = potentialScore
     }
 
-    console.log(guessed)
+    console.log(guessedLetter)
     button.classList.add('clicked')
     button.classList.remove('default')
 
@@ -64,7 +66,8 @@ letterButton.forEach(button => button.addEventListener('click', () => {
     textElements.forEach(element => textArray.push(element.textContent))
 
     if (textArray.toString() === correctWordArray.toString()) {
-        alert(potentialScore)
+        alert('CONGRATS')
+        guessedWord = true
     }
 }))
 
