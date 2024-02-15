@@ -32,6 +32,9 @@ newWordButton.addEventListener('click', () => {
     for (i = 0; i < randomWord.length; i++) {
         generateWord()
     }
+    document.addEventListener('keydown', (event) => {
+        console.log(event.key)
+    })
 })
 
 function generateWord () {
@@ -45,6 +48,7 @@ letterButton.forEach(button => button.addEventListener('click', () => {
     if (button.classList.contains('clicked')) return
     if (guessedWord === true) return
     guessedLetter = false
+    
     for (i = 0; i < correctWordArray.length; i++) {
         if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
@@ -57,7 +61,6 @@ letterButton.forEach(button => button.addEventListener('click', () => {
         potentialScoreWin.textContent = potentialScore
     }
 
-    console.log(guessedLetter)
     button.classList.add('clicked')
     button.classList.remove('default')
 
@@ -66,7 +69,9 @@ letterButton.forEach(button => button.addEventListener('click', () => {
     textElements.forEach(element => textArray.push(element.textContent))
 
     if (textArray.toString() === correctWordArray.toString()) {
-        alert('CONGRATS')
+        document.querySelectorAll('.wordLetter').forEach(item => {
+            item.style.color = 'greenyellow'
+        })
         guessedWord = true
     }
 }))
@@ -90,14 +95,12 @@ function submitForm (event) {
         const playerInDB = players[0].find((element) => element.name === inputValue)
 
         if (playerInDB !== undefined) {
-            console.log(playerInDB)
             document.getElementById('loggedInPlayer').textContent = playerInDB.name
             playerScore.textContent = playerInDB.score
         } else {
             document.getElementById('loggedInPlayer').textContent = inputValue
             playerScore.textContent = 0
             saveToDB(inputValue)
-            console.log('New Player')
         }
         }
     )
