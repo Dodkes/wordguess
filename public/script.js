@@ -53,7 +53,6 @@ letterButton.forEach(button => button.addEventListener('click', () => {
 
 function guessFunction (button) {
     if (button.classList.contains('clicked')) return
-    console.log(button)
     for (i = 0; i < correctWordArray.length; i++) {
         if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
