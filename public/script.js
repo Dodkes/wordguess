@@ -33,7 +33,8 @@ newWordButton.addEventListener('click', () => {
         generateWord()
     }
     document.addEventListener('keydown', (event) => {
-        console.log(event.key)
+        guessFunction(document.getElementById(event.key.toUpperCase()))
+        guessedLetter = false
     })
 })
 
@@ -45,10 +46,14 @@ function generateWord () {
 
 letterButton.forEach(button => button.addEventListener('click', () => {
     if (!correctWordArray) return
-    if (button.classList.contains('clicked')) return
     if (guessedWord === true) return
     guessedLetter = false
-    
+    guessFunction(button)
+}))
+
+function guessFunction (button) {
+    if (button.classList.contains('clicked')) return
+    console.log(button)
     for (i = 0; i < correctWordArray.length; i++) {
         if (button.textContent === correctWordArray[i] && button.classList.contains('default')) {
             wordContainer.childNodes[i].textContent = correctWordArray[i]
@@ -74,7 +79,8 @@ letterButton.forEach(button => button.addEventListener('click', () => {
         })
         guessedWord = true
     }
-}))
+}
+
 
 function refreshLetters () {
         letterButton.forEach(element => {
