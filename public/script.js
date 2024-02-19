@@ -77,6 +77,7 @@ function guessFunction (button) {
             item.style.color = 'greenyellow'
         })
         guessedWord = true
+        updatePlayerDB('Jozef2', 200)
     }
 }
 
@@ -139,3 +140,33 @@ function saveToDB (playerName) {
         console.error('There is a problem with POST request: ', error)
     })
 }
+/// UPDATE PLAYER UNFINISHED
+function updatePlayerDB (name, score) {
+   const data = {
+        name: name,
+        score: score
+   }
+
+   const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+   }
+
+   fetch('/test', requestOptions)
+   fetch('/test', requestOptions)
+   .then(async response => {
+    if (!response.ok) {
+        throw new Error('Network response was not OK')
+    }
+    try {
+           const data = await response.json()
+           console.log('Response', data)
+       } catch (error) {
+           console.error('There is a problem with POST request: ', error)
+       }
+})
+}
+/// UPDATE PLAYER UNFINISHED

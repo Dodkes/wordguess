@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url';
 import { dirname, format } from 'path';
 import express from 'express'
 import path from 'path'
-import { getPlayers, getPlayer, createPlayer, getWords } from './database.js'
+import { getPlayers, getPlayer, createPlayer, getWords, updatePlayer } from './database.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,7 +27,14 @@ app.get('/Players', async (req, res) => {
 
 app.post('/Players', async (req, res) => {
     const { name, score } = req.body
+    // await updatePlayer ( name, score )
     await createPlayer ( name, score )
+})
+
+app.post('/test', async (req, res) => {
+    const { name, score } = req.body
+    console.log(name, score)
+    // await updatePlayer ( name, score )
 })
 
 app.listen(8080, () => {

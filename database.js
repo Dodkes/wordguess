@@ -45,3 +45,12 @@ export async function createPlayer (name, score) {
 
 // const result = await createPlayer ('Dodo', 1266)
 // console.log(result)
+
+export async function updatePlayer(name, score) {
+    const update = await pool.query(`
+    UPDATE Players
+    SET score = ?
+    WHERE name = ?
+    `, [score, name]);
+    return update;
+}
